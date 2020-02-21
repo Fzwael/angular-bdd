@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.sass"]
 })
 export class AppComponent {
-  title = 'angular-bdd';
+  counter = 0;
+
+  increment(): void {
+    this.counter++;
+  }
+
+  decrement(): void {
+    this.counter--
+  }
 }
