@@ -2,7 +2,7 @@
 
 This project is part of the tutorial BDD with Angular and CucumberJs
 
-#### Introduction
+## Introduction
 
 [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) (Behavior Driven Developement) became more common these years specially with Scrum teams since it gives more agility between product owners (and functionnal people) and the develpers.
 
@@ -19,10 +19,46 @@ The gherkin syntax looks like this :
      Then some testable outcome is achieved
       And something else we can check happens too
 ```
-### CucumberJS
+## CucumberJS
 
 Since this example is focused on Angular a we will use [CucumberJS](https://github.com/cucumber/cucumber-js) along with [Protractor](https://www.protractortest.org/) and the framework [protractor-cucumber-framework](https://github.com/protractor-cucumber-framework/protractor-cucumber-framework)
 
-### Implementation
+## Implementation
+
+### Angular application
 
 We will start first by creating a simple Angular counter app.
+We will do so just by changing the app component of the deault app generated with the [angular cli](https://cli.angular.io/) via the command `ng new angular-bdd` to the following:
+
+``` html
+<h3 id="counter">{{ counter }}</h3>
+
+<button id="increment" (click)="increment()">INCREMENT</button>
+
+<button id="decrement" (click)="decrement()">DECREMENT</button>
+```
+
+And
+
+``` typescript
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.sass"]
+})
+export class AppComponent {
+  counter = 0;
+
+  increment(): void {
+    this.counter++;
+  }
+
+  decrement(): void {
+    this.counter--
+  }
+}
+```
+
+### Configuring Protractor & Cucumber
