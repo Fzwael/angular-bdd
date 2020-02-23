@@ -8,9 +8,9 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should have AngularBdd as a title', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('angular-bdd app is running!');
+    expect(browser.getTitle()).toEqual('AngularBdd');
   });
 
   afterEach(async () => {

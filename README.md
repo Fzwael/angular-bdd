@@ -62,3 +62,23 @@ export class AppComponent {
 ```
 
 ### Configuring Protractor & Cucumber
+
+#### Installing Protractor:
+To install Protractor you can follow the official documentation found in : [protractortest.org](https://www.protractortest.org/).
+
+Running the following commands will do it :
+```
+npm install -g protractor
+webdriver-manager update
+ng e2e --port 4201
+```
+
+Angular should have created a test file called **app.e2e-spec.ts** with a test named **should display welcome message**.
+You can modify that test to the following to test if everything is working fine (We will keep the default configuration for Protractor provided by Angular CLI):
+
+``` typescript
+  it('should have AngularBdd as a title', () => {
+    page.navigateTo();
+    expect(browser.getTitle()).toEqual('AngularBdd');
+  });
+```
