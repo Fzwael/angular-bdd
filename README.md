@@ -82,3 +82,56 @@ You can modify that test to the following to test if everything is working fine 
     expect(browser.getTitle()).toEqual('AngularBdd');
   });
 ```
+
+#### Configuring CucumberJS
+To use Cucumber with Protractor we are going to use this plugin : [protractor-cucumber-framework](https://www.npmjs.com/package/protractor-cucumber-framework). We can install it via the command : 
+```
+npm install --save-dev cucumber
+npm install --save-dev protractor-cucumber-framework
+```
+
+Now we can follow the official documentation of the protractor-cucumber-framework and configure our protractor.conf.js like the following :
+``` javascript
+exports.config = {
+  // set to "custom" instead of cucumber.
+  framework: 'custom',
+ 
+  // path relative to the current config file
+  frameworkPath: require.resolve('protractor-cucumber-framework'),
+ 
+  // require feature files
+  specs: [
+    './src/specs/*.feature' // accepts a glob
+  ],
+ 
+  cucumberOpts: {
+    // require step definitions
+    require: [
+      './src/steps/*.steps.ts' // accepts a glob
+    ]
+  }
+};
+```
+
+You can see that in the specs section we are only targeting the .feature files. Those files are used by cucumber to describe the app's behavior, so let's go ahead and create a simple one (app.feature) :
+
+``` Gherkins
+Feature: Increment the counter
+    This feature lets a user increment the counter by clicking on the button.
+
+Scenario: Basic increment scenario
+    Given I am on the home page
+    When I click on the increment button 5 times
+    Then The counter should show 5
+```
+
+Now let's run our `ng e2e` command.
+As you can notice you will get a bunch of undefined warnings from cucumber, this basically tells us that what Protractor can't translate what we just wronte in Gherkins, which is normal since in a scrum environment the product owners/functionnals are the ones who write this files in human language then comes the role of somone with some programming language to translate those. Let's do that.
+
+Cucumber actually helps us by suggesting the methods that needs to be implemented in the output, all we have to do is create a new file under e2e/steps (let's call it app.steps.ts)
+
+``` typescript
+// Import the cucumber operators we need
+import { Before, Given, Then, When } from 'cucumber';
+import { AppPage } from 'e2e/src/app.po';
+```
