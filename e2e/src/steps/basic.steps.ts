@@ -23,14 +23,7 @@ When("I click on the increment button {int} times", async (x: number) => {
   }
 });
 
-Then("The counter should show {int}", (x: number) => {
-  element(by.id("counter"))
-    .getText()
-    .then((value: string) => {
-      // Expect that we get the correct value showing
-      expect(value).to.equal(x);
-    })
-    .catch((error: any) => {
-      console.error('Error occured ', error);
-    });
+Then("The counter should show {string}", async (x: string) => {
+  // Expect that we get the correct value showing
+  expect(await element(by.id("counter")).getText()).to.equal(x);
 });
