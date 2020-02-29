@@ -1,6 +1,7 @@
 # Angular BDD
 
-This project is part of the tutorial BDD with Angular and CucumberJs
+This project is part of the tutorial BDD with Angular and CucumberJs.
+Full code can be found here [Github](https://github.com/Fzwael/angular-bdd)
 
 ## Introduction
 
@@ -167,3 +168,5 @@ Now we can run `ng e2e` command and check the result.
 This was a quick introduction to BDD with Angular, Cucumber and Protractor. We can always add other features or senarios.
 
 The good thing about this configuration is for example we want to test the decrement feature we won't have to redefine the basic scenarios (going to home page and expecting the result). This is very helpful since in theory somone working on functionnal definitions could write new tests without having to add any new code to the application.
+
+Full code can be found here [Github](https://github.com/Fzwael/angular-bdd)
