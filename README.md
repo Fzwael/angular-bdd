@@ -112,7 +112,7 @@ exports.config = {
 };
 ```
 
-You can see that in the specs section we are only targeting the .feature files. Those files are used by cucumber to describe the app's behavior, so let's go ahead and create a simple one (app.feature) :
+You can see that in the specs section we are only targeting the .feature files. Those files are used by cucumber to describe the app's behavior, so let's go ahead and create a simple one (basic-spec.feature) :
 
 ``` Gherkins
 Feature: Increment the counter
@@ -127,10 +127,50 @@ Scenario: Basic increment scenario
 Now let's run our `ng e2e` command.
 As you can notice you will get a bunch of undefined warnings from cucumber, this basically tells us that what Protractor can't translate what we just wronte in Gherkins, which is normal since in a scrum environment the product owners/functionnals are the ones who write this files in human language then comes the role of somone with some programming language to translate those. Let's do that.
 
-Cucumber actually helps us by suggesting the methods that needs to be implemented in the output, all we have to do is create a new file under e2e/steps (let's call it app.steps.ts)
+Cucumber actually helps us by suggesting the methods that needs to be implemented in the output, all we have to do is create a new file under e2e/steps (let's call it basic.steps.ts)
 
 ``` typescript
 // Import the cucumber operators we need
-import { Before, Given, Then, When } from 'cucumber';
-import { AppPage } from 'e2e/src/app.po';
+import { Before, Given, Then, When } from "cucumber";
+import { AppPage } from "../app.po";
+import { element, by } from "protractor";
+import { expect } from "chai";
+
+let page: AppPage;
+
+Before(() => {
+  page = new AppPage();
+});
+
+Given("I am on the home page", async () => {
+  // Navigate to home page.
+  await page.navigateTo();
+});
+
+When("I click on the increment button {int} times", async (x: number) => {
+  // Click on the increment button x times.
+  const incrementButton = element(by.id("increment"));
+  for (let index = 0; index < x; index++) {
+    await incrementButton.click();
+  }
+});
+
+Then("The counter should show {int}", (x: number) => {
+  element(by.id("counter"))
+    .getText()
+    .then((value: string) => {
+      // Expect that we get the correct value showing
+      expect(value).to.equal(x);
+    })
+    .catch((error: any) => {
+      console.error('Error occured ', error);
+    });
+});
 ```
+Now we can run `ng e2e` command and check the result.
+
+## Conclusion
+
+This was a quick introduction to BDD with Angular, Cucumber and Protractor. We can always add other features or senarios.
+
+The good thing about this configuration is for example we want to test the decrement feature we won't have to redefine the basic scenarios (going to home page and expecting the result). This is very helpful since in theory somone working on functionnal definitions could write new tests without having to add any new code to the application.
