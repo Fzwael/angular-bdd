@@ -86,8 +86,7 @@ You can modify that test to the following to test if everything is working fine 
 #### Configuring CucumberJS
 To use Cucumber with Protractor we are going to use this plugin : [protractor-cucumber-framework](https://www.npmjs.com/package/protractor-cucumber-framework). We can install it via the command : 
 ```
-npm install --save-dev cucumber
-npm install --save-dev protractor-cucumber-framework
+npm install --save-dev cucumber protractor-cucumber-framework chai @types/chai @types/cucumber
 ```
 
 Now we can follow the official documentation of the protractor-cucumber-framework and configure our protractor.conf.js like the following :
